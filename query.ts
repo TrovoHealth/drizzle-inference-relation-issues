@@ -12,7 +12,7 @@ async function main() {
             columns: {
                 id: true,
 
-                // Type error, cant' infer custom types
+                // This would be a type error on the other repo, seem to work though
                 test: true
             },
         },
