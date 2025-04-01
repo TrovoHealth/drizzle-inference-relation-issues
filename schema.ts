@@ -1,7 +1,7 @@
 import { relations } from 'drizzle-orm';
 import { pgTable, serial, text, integer, timestamp, PgColumnBuilder, PgColumnBuilderBase } from 'drizzle-orm/pg-core';
 
-const createUserTable = <T extends Record<string, PgColumnBuilderBase>>(customColumns: T) => pgTable('users', {
+const createUserTable = <T extends Record<string, PgColumnBuilderBase>>({customColumns}: {customColumns: T}) => pgTable('users', {
   id: serial('id').primaryKey(),
   name: text('name').notNull(),
   email: text('email').notNull().unique(),
@@ -10,7 +10,9 @@ const createUserTable = <T extends Record<string, PgColumnBuilderBase>>(customCo
 });
 export const users = createUserTable(
   {
-    test: text('test').notNull(),
+    customColumns: {
+      test: text('test').notNull(),
+    }
   }
 );
 
