@@ -1,15 +1,17 @@
 import { relations } from 'drizzle-orm';
 import { pgTable, serial, text, integer, timestamp, PgColumnBuilder, PgColumnBuilderBase } from 'drizzle-orm/pg-core';
 
-const createUserTable = <T extends Record<string, PgColumnBuilderBase>>({customColumns}: {customColumns: T}) => pgTable('users', {
-  id: serial('id').primaryKey(),
-  name: text('name').notNull(),
-  email: text('email').notNull().unique(),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
-  ...customColumns,
-});
+const createUserTable = <T extends Record<string, PgColumnBuilderBase>>(
+  {customColumns, tableName}: {customColumns: T, tableName: string) => pgTable(tableName, {
+      id: serial('id').primaryKey(),
+      name: text('name').notNull(),
+      email: text('email').notNull().unique(),
+      createdAt: timestamp('created_at').defaultNow().notNull(),
+      ...customColumns,
+  });
 export const users = createUserTable(
   {
+    tableName: 'users',
     customColumns: {
       test: text('test').notNull(),
     }
