@@ -5,7 +5,6 @@ import { eq } from 'drizzle-orm';
 async function main() {
   // Example of an inner join query
   const userOrders = await db.query.orders.findMany({
-    where: eq(orders.status, 'completed'),
     with: {
       user: {
           columns: {
